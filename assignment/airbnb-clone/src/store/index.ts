@@ -1,18 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit' 
-import { setupListeners } from '@reduxjs/toolkit/query'
-import { photoApi } from './apis/photoApi'
+import { likeReducer, toggleColor } from './slices/likeSlice';
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
-    [photoApi.reducerPath]: photoApi.reducer
+    like: likeReducer,
   },
-  devTools: process.env.NODE_ENV !== 'production',
-  middleware: (getDefaultMiddleware) => {
-    return  getDefaultMiddleware()
-      .concat(photoApi.middleware)
-  }
 })
 
-setupListeners(store.dispatch)
+export type RootState = ReturnType<typeof store.getState>; 
 
-export { useFetchPhotosQuery } from './apis/photoApi'
+export { store, toggleColor }
