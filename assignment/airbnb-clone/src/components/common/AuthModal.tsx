@@ -1,6 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
+
+import SignIn from '../auth/SignIn'
+import SignUp from '../auth/SignUp'
+// @types
 import { IPropsAuthModal } from '../../@types/IPropsAuthModal'
+// @Icons
 import { MdClose } from 'react-icons/md' 
 import { SiNaver } from 'react-icons/si'
 import { AiFillFacebook, AiFillApple } from 'react-icons/ai'
@@ -10,7 +15,10 @@ import { CiMail } from 'react-icons/ci'
 
 
 
+
+
 const AuthModal:React.FC<IPropsAuthModal> = ({ onClose }) => {
+  const [isLogin, setIsLogin] = useState<boolean>(true)
 
   useEffect(()=>{
     document.body.classList.add('overflow-hidden')
@@ -23,6 +31,10 @@ const AuthModal:React.FC<IPropsAuthModal> = ({ onClose }) => {
   
   const innerClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+  }
+
+  const handleUI = () => {
+    setIsLogin(!isLogin)
   }
 
   return ReactDOM.createPortal(
@@ -42,8 +54,14 @@ const AuthModal:React.FC<IPropsAuthModal> = ({ onClose }) => {
             <div className='flex items-center justify-start mt-2 mb-6 text-[22px] h-[26px]'>
               <h3 className='font-AirbnbBlack'>에어비앤비에 오신 것을 환영합니다.</h3>
             </div>
-            {/* 지역 / 번호 */}
-            <select className="w-full border-gray-200 h-14 hover:border-black focus:outline-none select hover:border-2 ">
+
+            {
+              isLogin 
+              ? <SignIn />
+              : <SignUp />
+            }
+
+            {/* <select className="w-full border-gray-200 h-14 hover:border-black focus:outline-none select hover:border-2 ">
               <option disabled selected>Select your Country</option>
               <option>폴란드(+48)</option>
               <option>프랑스(+33)</option>
@@ -62,14 +80,14 @@ const AuthModal:React.FC<IPropsAuthModal> = ({ onClose }) => {
             <div className='w-full text-[12px] h-[32px] mt-2 tracking-tight leading-4'>
               전화나 문자로 전화번호를 확인하겠습니다. 일반 문자 메시지 요금 및 데이터 요금이 부과됩니다. <span className='font-semibold underline'>개인정보 <br /> 처리방침</span>
             </div>
-            {/* 버튼 */}
             <button className='w-full h-12 mt-4 mb-6 rounded-lg bg-[#FF385C] text-white '>계속</button>
-            {/* 절취선 */}
             <div className='flex items-center justify-between w-full'>
               <div className='w-[233px] h-[1px] border-b border-b-gray-200'></div>
               <div className='flex items-center justify-center w-[41.5px] h-[16px] text-[12px] text-gray-00'> 또는 </div>
               <div className='w-[233px] h-[1px] border-b border-b-gray-200'></div>
             </div>
+ */}
+
             {/* 다른 로그인 버튼 */}
             <div className='space-y-4'>
               <button className='px-6 py-3 flex items-center justify-between w-full h-12 mt-4  text-black bg-white border border-black text-[14px] rounded-lg'>
@@ -100,7 +118,7 @@ const AuthModal:React.FC<IPropsAuthModal> = ({ onClose }) => {
                 애플로 로그인하기
                 <span></span>
               </button>
-              <button className='px-6 py-3 flex items-center justify-between w-full h-12 mt-4  text-black bg-white border border-black text-[14px] rounded-lg'>
+              <button onClick={handleUI} className='px-6 py-3 flex items-center justify-between w-full h-12 mt-4  text-black bg-white border border-black text-[14px] rounded-lg'>
                 <span className='flex items-center justify-center w-5 h-5'>
                   <CiMail className="text-lg"/>
                 </span>
