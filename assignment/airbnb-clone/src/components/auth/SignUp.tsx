@@ -54,7 +54,7 @@ const SignUp = () => {
         <button 
           type='submit'
           disabled={isSignupDisabled}
-          className={`w-full h-12 mt-4 mb-6 rounded-lg ${ isSignupDisabled ? 'bg-[#FF385C]' : 'bg-cyan-700'} text-white`}>계속</button>
+          className={`w-full h-12 mt-4 mb-6 rounded-lg ${ isSignupDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#FF385C]'} text-white`}>계속</button>
       </form>
         {/* 절취선 */}
         <div className='flex items-center justify-between w-full my-2'>
