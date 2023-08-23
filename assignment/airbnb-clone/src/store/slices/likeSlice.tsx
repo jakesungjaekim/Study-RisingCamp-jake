@@ -1,11 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { TLikeState } from '../../@types/TLikeState'
 
-type LikeState = {
-  colors: Record<string, boolean>;
-  likedItem: string[];
-};
-
-const initialState: LikeState = {
+const initialState: TLikeState = {
   colors: {},
   likedItem: [],
 };
@@ -14,14 +10,23 @@ const likeSlice = createSlice({
     name: 'like',
     initialState,
     reducers: {
-      toggleColor(state, action) {
+      toggleColor(state, action: PayloadAction<string>) {
         const id = action.payload
 
-        if (state.colors[id] !== undefined) { 
-          state.colors[id] = !state.colors[id]; 
+        // if (state.colors[id] !== undefined) { 
+        //   state.colors[id] = !state.colors[id]; 
+        // } else {
+        //   state.colors[id] = true; 
+        // }
+
+        state.colors[id] = !state.colors[id];
+
+        if (state.colors[id]) {
+          state.likedItem.push(id);
         } else {
-          state.colors[id] = true; 
+          state.likedItem = state.likedItem.filter(item => item !== id);
         }
+
       },
     },
 })

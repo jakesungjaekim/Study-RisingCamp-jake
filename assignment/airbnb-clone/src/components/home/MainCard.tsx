@@ -1,17 +1,14 @@
 import { useState } from 'react'
 import className from 'classnames'
+// @icon
 import { AiTwotoneStar } from 'react-icons/ai'
 import { HiOutlineHeart } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
-
-import { RootState } from '../../store'
+// @types
+import { IPropsMainCard } from '../../@types/IPropsMainCard'
+// @RTK
+import { RootState, toggleColor  } from '../../store'
 import { useDispatch, useSelector } from 'react-redux'
-import { toggleColor } from '../../store'
-
-interface IPropsMainCard {
-  size: number
-  photo: any
-}
 
 const MainCard = ({
   size,
@@ -54,12 +51,15 @@ const MainCard = ({
 
   const dispatch = useDispatch()
   const isLiked = useSelector((state: RootState) => state.like.colors[photo.id]);
-  
+
   const handleColor = () => {
-    console.log('clicked')
+    console.log('clicked', photo.id)
     dispatch(toggleColor(photo.id))
   }
   
+  // Data 확인
+  // const data = useSelector((state: RootState) => state.like.likedItem)
+  // console.log(data)
 
   return (
       <article className={`${classes} relative`}>
